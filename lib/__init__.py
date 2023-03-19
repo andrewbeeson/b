@@ -123,9 +123,7 @@ class Session(object):
         self.maxage : int = app.config.get('app.maxage')
         self.name : str = app.config.get('app.name').replace(' ', '_')
 
-        print('Session:', f'getting cookie at {time.time()}')
         data : dict = bottle.request.get_cookie(self.name, secret=self.secret)
-        print('Session:', f'got cookie at {time.time()}')
         self._data : dict = data or dict()
 
     def __contains__(self, key):

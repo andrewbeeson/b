@@ -15,12 +15,50 @@
     <title>Administration&nbsp;&mdash;&nbsp;{{config['app.name']}}</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="header">
+      <h1>User Administration</h1>
+      <p>{{selection}}</p>
+    </div>
+    <form>
+      <div>
+        <input id="id" name="id" placeholder="User identifier" Type="number"/>
+      </div>    
+  
+      <div>
+        <input id="name" name="name" placeholder="User name" Type="text"/>
+      </div>    
+  
+      <div>
+        <label for="active">User active</label>
+        <select id="active" name="active">
+          <option value="">Choose</option>
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>    
+  
+      <div>
+        <label for="admin">User type</label>
+        <select id="admin" name="admin">
+          <option value="">Choose</option>
+          <option value="1">Administrator</option>
+          <option value="0">User</option>
+        </select>
+      </div>    
+    </div>
 
-<%
+    <div>
+      <button id="search" type="submit">Search</button>
+    </div>    
+  </form>
+  <div>
+    <p>{{resultset['lastrowid']}}</p>
+    <p>{{resultset['lastcount']}}</p>
+    <p>{{resultset['rowcount']}}</p>
+    <p>{{resultset['rows']}}</p>
+  </div>
 
-%>
-    <!-- Optional JavaScript -->
+  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script 
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
