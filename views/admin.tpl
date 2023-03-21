@@ -15,50 +15,65 @@
     <title>Administration&nbsp;&mdash;&nbsp;{{config['app.name']}}</title>
   </head>
   <body>
-    <div class="header">
-      <h1>User Administration</h1>
-      <p>{{selection}}</p>
+    <div class="container-fluid pt=3">
+      <div class="header">
+        <h1>User Administration</h1>
+        <p>{{selection}}</p>
+      </div>
+      <form class="row">
+        <div class="col-md-4 align-middle m-2">
+          <input id="id" name="id" placeholder="User identifier" type="number" value="{{parameters['id']}}"/>
+        </div>    
+    
+        <div class="col-md-4 align-middle m-2">
+          <input id="name" name="name" placeholder="User name" type="text" value="{{parameters['name']}}"/>
+        </div>    
+    
+        <div class="col-md-1 align-middle m-2">
+          <select id="active" name="active">
+            <option value="">Any</option>
+            <option value="1" {{'selected' if parameters['active'] == 1 else ''}}>Active</option>
+            <option value="0" {{'selected' if parameters['active'] == 0 else ''}}>Inactive</option>
+          </select>
+        </div>    
+    
+        <div class="col-md-1 align-middle m-2">
+          <select id="admin" name="admin">
+            <option value="">Any type</option>
+            <option value="1" {{'selected' if parameters['useradmin'] == 1 else ''}}>Administrator</option>
+            <option value="0" {{'selected' if parameters['useradmin'] == 0 else ''}}>User</option>
+          </select>
+        </div>
+      
+        <div class="col-md-1 align-middle m-2">
+          <button class="btn " id="search" type="submit">Search</button>
+        </div>    
+      </form>
+      <div class="row">
+<% if resultset['rowcount'] == 0: %>
+        <p>No records found</p>
+<% else: %>
+        <table class="table table-striped">
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Active</th>
+            <th>Administrator</th>
+          </tr>
+  <% for row in resultset['rows']: %>
+          <tr>
+            <td>{{row['id']}}</td>
+            <td>{{row['username']}}</td>
+            <td>{{'Yes' if row['active'] == 1 else 'No' if row['active'] == 0 else ''}}</td>
+            <td>{{'Administrator' if row['useradmin'] == 1 else 'Player' if row['useradmin'] == 0 else ''}}</td>
+          </tr>
+  <% end %>
+        </table>
+<% end %>
+      </div>
     </div>
-    <form>
-      <div>
-        <input id="id" name="id" placeholder="User identifier" Type="number"/>
-      </div>    
-  
-      <div>
-        <input id="name" name="name" placeholder="User name" Type="text"/>
-      </div>    
-  
-      <div>
-        <label for="active">User active</label>
-        <select id="active" name="active">
-          <option value="">Choose</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
-        </select>
-      </div>    
-  
-      <div>
-        <label for="admin">User type</label>
-        <select id="admin" name="admin">
-          <option value="">Choose</option>
-          <option value="1">Administrator</option>
-          <option value="0">User</option>
-        </select>
-      </div>    
-    </div>
-
-    <div>
-      <button id="search" type="submit">Search</button>
-    </div>    
-  </form>
-  <div>
-    <p>{{resultset['lastrowid']}}</p>
-    <p>{{resultset['lastcount']}}</p>
-    <p>{{resultset['rowcount']}}</p>
-    <p>{{resultset['rows']}}</p>
-  </div>
-
-  <!-- Optional JavaScript -->
+    
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script 
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
