@@ -80,7 +80,7 @@ def usermaintenance(db):
         selection = f'Individual with id, {id}'
         statement = 'fetch by id'
 
-    elif name and '%' not in name and '?' not in name:
+    elif name and '%' not in name and '_' not in name:
         selection = f'Individual with name, {name}'
         statement = 'fetch by name'
     
@@ -124,6 +124,7 @@ def usermaintenance(db):
     
     return dict(
         config=bottle.request.app.config
+        , parameters=parameters
         , resultset=resultset.todict()
         , selection = selection
         , url=bottle.request.url
