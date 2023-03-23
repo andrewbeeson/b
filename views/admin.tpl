@@ -1,4 +1,19 @@
 <!doctype html>
+<%
+activeselect0 = 'selected' if parameters['active'] == 0 else ''
+activeselect1 = 'selected' if parameters['active'] == 1 else ''
+adminselect0 = 'selected' if parameters['useradmin'] == 0 else ''
+adminselect1 = 'selected' if parameters['useradmin'] == 1 else ''
+
+id = parameters['id']
+name = '' if parameters['name'] == 'None' else parameters['name']
+
+def rowcolumn(row, column):
+    labels = dict(active = ('No', 'Yes'), useradmin=('Player', 'Administrator'))
+    value = row[column]
+    return labels[column][int(value)] if column in labels else value
+end
+ %>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -22,26 +37,26 @@
       </div>
       <form class="row">
         <div class="col-md-4 align-middle m-2">
-          <input id="id" name="id" placeholder="User identifier" type="number" value="{{parameters['id']}}"/>
+          <input id="id" name="id" placeholder="User identifier" type="number" value="{{id}}"/>
         </div>    
     
         <div class="col-md-4 align-middle m-2">
-          <input id="name" name="name" placeholder="User name" type="text" value="{{parameters['name']}}"/>
+          <input id="name" name="name" placeholder="User name" type="text" value="{{name}}"/>
         </div>    
     
         <div class="col-md-1 align-middle m-2">
           <select id="active" name="active">
             <option value="">Any</option>
-            <option value="1" {{'selected' if parameters['active'] == 1 else ''}}>Active</option>
-            <option value="0" {{'selected' if parameters['active'] == 0 else ''}}>Inactive</option>
+            <option value="1" {{activeselect1}}>Active</option>
+            <option value="0" {{activeselect0}}>Inactive</option>
           </select>
         </div>    
     
         <div class="col-md-1 align-middle m-2">
           <select id="admin" name="admin">
             <option value="">Any type</option>
-            <option value="1" {{'selected' if parameters['useradmin'] == 1 else ''}}>Administrator</option>
-            <option value="0" {{'selected' if parameters['useradmin'] == 0 else ''}}>User</option>
+            <option value="1" {{adminselect1}}>Administrator</option>
+            <option value="0" {{adminselect0}}>Player</option>
           </select>
         </div>
       
@@ -62,10 +77,10 @@
           </tr>
   <% for row in resultset['rows']: %>
           <tr>
-            <td>{{row['id']}}</td>
-            <td>{{row['username']}}</td>
-            <td>{{'Yes' if row['active'] == 1 else 'No' if row['active'] == 0 else ''}}</td>
-            <td>{{'Administrator' if row['useradmin'] == 1 else 'Player' if row['useradmin'] == 0 else ''}}</td>
+            <td>{{rowcolumn(row, 'id')}}</td>
+            <td>{{rowcolumn(row, 'username')}}</td>
+            <td>{{rowcolumn(row, 'active')}}</td>
+            <td>{{rowcolumn(row, 'useradmin')}}</td>
           </tr>
   <% end %>
         </table>

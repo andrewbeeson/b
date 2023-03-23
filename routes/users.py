@@ -9,7 +9,7 @@ app =lib.app
 userstatements = lib.statements.StatementRegister(app, 'users')
 
 
-def hashpassword(password : str):
+def hashpassword(password : str) -> str:
     """Hash password
     """
     if password:

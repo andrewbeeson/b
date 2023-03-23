@@ -2,7 +2,6 @@
 """
 
 import bottle
-import sqlite3
 
 import lib
 import lib.statements
@@ -18,7 +17,10 @@ def checkadmin(abort : bool = True) -> bool:
     session : dict = lib.Session()
     admin = bool(session.get('admin', False))
     if abort and not admin:
-        bottle.abort(403, 'Not authorised')
+        bottle.abort(403, 'Forbidden')
+
+    if not admin:
+        bottle.redirect(f'/login?next={bottle.request.url}')
 
     return admin
 
@@ -27,7 +29,7 @@ def checkadmin(abort : bool = True) -> bool:
 def usermaintenance(db):
     """
     """
-    checkadmin()
+    checkadmin(abort=False)
 
     query = bottle.request.query
 
