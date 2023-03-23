@@ -30,6 +30,7 @@ end
     <title>Administration&nbsp;&mdash;&nbsp;{{config['app.name']}}</title>
   </head>
   <body>
+<<<<<<< HEAD
     <div class="container-fluid pt=3">
       <div class="header">
         <h1>User Administration</h1>
@@ -88,6 +89,19 @@ end
       </div>
     </div>
     
+=======
+    <h1>Hello, world!</h1>
+<div>
+    <input type="checkbox" id="Admin" name="Admin" value="Admin">
+    <label for="Admin"> please tick if admin logging in</label><br>
+    <input type="checkbox" id="Active" name="Active" value="Active">
+    <label for="Active"> please tick if active</label><br>
+    <label for="EntryForId">(between 1 and 5):</label>
+    <input type="interger" id="quantity" name="Entry" min="1" max="5">
+
+  <input type="button" value="Press here" />
+</div>
+>>>>>>> 16641a8 (added html quiz template)
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script 
